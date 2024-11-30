@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>万程OA平台</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <div id="loginPage" class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">万程OA平台</h1>
+            <div class="input-group">
+                <label>工号</label>
+                <input type="text" id="workId" placeholder="请输入工号">
+            </div>
+            <div class="input-group">
+                <label>密码</label>
+                <input type="password" id="password" placeholder="请输入密码">
+            </div>
+            <button class="login-btn" onclick="login()">登录</button>
+        </div>
+    </div>
+
+    <div id="mainPage" class="main-container">
+        <div class="header">
+            <img src="https://s1.imagehub.cc/images/2024/12/01/2cb9218af26caa69cf1cb58b96431647.png" class="avatar">
+            <div class="user-info">
+                <div class="name-status">
+                    <h2>姚家荣</h2>
+                    <div class="status-dropdown">
+                        <div class="status-tag" onclick="toggleStatusList()">
+                            <i class="ri-plane-line"></i>
+                            <span>出差中</span>
+                            <i class="ri-arrow-down-s-line"></i>
+                        </div>
+                        <div class="status-list" id="statusList">
+                            <div class="status-item" onclick="selectStatus(0)">
+                                <i class="ri-user-follow-line"></i>
+                                <span>打工中</span>
+                            </div>
+                            <div class="status-item" onclick="selectStatus(1)">
+                                <i class="ri-plane-line"></i>
+                                <span>出差中</span>
+                            </div>
+                            <div class="status-item" onclick="selectStatus(2)">
+                                <i class="ri-home-6-line"></i>
+                                <span>请假中</span>
+                            </div>
+                            <div class="status-item" onclick="selectStatus(3)">
+                                <i class="ri-team-line"></i>
+                                <span>会议中</span>
+                            </div>
+                            <div class="status-item" onclick="selectStatus(4)">
+                                <i class="ri-book-open-line"></i>
+                                <span>培训中</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p>总经办 | 12001</p>
+            </div>
+        </div>
+
+        <div id="messagePage" class="message-container">
+            <div class="empty-message">
+                <i class="ri-message-3-line"></i>
+                <p>暂无消息</p>
+            </div>
+        </div>
+
+        <div id="workspacePage" class="workspace-container" style="display: none;">
+            <div class="function-container">
+                <div class="function-grid">
+                    <div class="function-item">
+                        <img src="https://s1.imagehub.cc/images/2024/12/01/fa4f10db41520a1a981fff1ecfb82bf2.png" alt="审批">
+                        <span>审批</span>
+                    </div>
+                    <div class="function-item">
+                        <img src="https://s1.imagehub.cc/images/2024/12/01/2f05b771064fda02e3b2a368d6c30f28.png" alt="申请">
+                        <span>申请</span>
+                    </div>
+                    <div class="function-item">
+                        <img src="https://s1.imagehub.cc/images/2024/12/01/63be57eec21c152efe9383885343cf9b.png" alt="打卡">
+                        <span>打卡</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="clockPage" class="clock-container" style="display: none;">
+            <div class="user-card">
+                <div class="user-info-row">
+                    <span class="label">姓名：</span>
+                    <span class="value">姚家荣</span>
+                </div>
+                <div class="user-info-row">
+                    <span class="label">工号：</span>
+                    <span class="value">12001</span>
+                </div>
+                <div class="user-info-row">
+                    <span class="label">部门：</span>
+                    <span class="value">总经办</span>
+                </div>
+            </div>
+            
+            <div class="clock-actions">
+                <div class="clock-time">
+                    <div id="currentTime" class="time">--:--:--</div>
+                    <div id="currentDate" class="date">---- 年 -- 月 -- 日</div>
+                </div>
+                <div class="clock-buttons">
+                    <button class="clock-btn clock-in" onclick="clockIn()">上班打卡</button>
+                    <button class="clock-btn clock-out" onclick="clockOut()">下班打卡</button>
+                </div>
+                <button class="repair-btn" onclick="showRepairForm()">补卡申请</button>
+            </div>
+            
+            <div class="clock-records">
+                <div class="records-header">
+                    <h3>打卡记录</h3>
+                </div>
+                <div class="records-list" id="clockRecords">
+                    <!-- 打卡记录将通过 JavaScript 动态添加 -->
+                </div>
+            </div>
+        </div>
+
+        <nav class="nav-bar">
+            <a href="#message" class="nav-item active">
+                <i class="ri-message-3-line"></i>
+                <span>消息</span>
+            </a>
+            <a href="#workspace" class="nav-item">
+                <i class="ri-apps-line"></i>
+                <span>工作台</span>
+            </a>
+            <a href="#contacts" class="nav-item">
+                <i class="ri-contacts-book-line"></i>
+                <span>通讯录</span>
+            </a>
+            <a href="#discover" class="nav-item">
+                <i class="ri-compass-3-line"></i>
+                <span>发现</span>
+            </a>
+            <a href="#profile" class="nav-item">
+                <i class="ri-user-line"></i>
+                <span>我的</span>
+            </a>
+        </nav>
+
+        <div id="profilePage" class="profile-container" style="display: none;">
+            <div class="logout-section">
+                <button class="logout-btn" onclick="logout()">退出登录</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加模态弹窗 -->
+    <div class="modal-overlay" id="clockModal">
+        <div class="modal-content">
+            <div class="modal-message" id="modalMessage"></div>
+            <button class="modal-btn" onclick="closeModal()">确定</button>
+        </div>
+    </div>
+
+    <!-- 补卡申请页面 -->
+    <div id="repairPage" class="repair-container" style="display: none;">
+        <div class="page-header">
+            <i class="ri-arrow-left-line" onclick="backToClockPage()"></i>
+            <span>补卡申请</span>
+        </div>
+        
+        <div class="repair-form">
+            <div class="form-item">
+                <label>申请编号</label>
+                <input type="text" id="repairId" readonly>
+            </div>
+            <div class="form-item">
+                <label>申请时间</label>
+                <input type="text" id="applyTime" readonly>
+            </div>
+            <div class="form-item user-info-flex">
+                <div class="info-half">
+                    <label>姓名</label>
+                    <input type="text" value="姚家荣" readonly>
+                </div>
+                <div class="info-half">
+                    <label>工号</label>
+                    <input type="text" value="12001" readonly>
+                </div>
+            </div>
+            <div class="form-item">
+                <label>部门</label>
+                <input type="text" value="总经办" readonly>
+            </div>
+            <div class="form-item">
+                <label>补卡日期</label>
+                <input type="date" id="repairDate" required>
+            </div>
+            <div class="form-item">
+                <label>补卡时间</label>
+                <input type="time" id="repairTime" required>
+            </div>
+            <div class="form-item">
+                <label>补卡理由</label>
+                <textarea id="repairReason" placeholder="请输入补卡理由" required></textarea>
+            </div>
+            <button class="submit-btn" onclick="submitRepairForm()">提交申请</button>
+        </div>
+    </div>
+
+    <!-- 添加补卡申请成功弹窗 -->
+    <div class="modal-overlay" id="repairModal">
+        <div class="modal-content">
+            <div class="success-icon">
+                <img src="https://s1.imagehub.cc/images/2024/12/01/9c04e887689c4bca338075944ffc3776.png" alt="success">
+            </div>
+            <div class="modal-message" id="repairModalMessage"></div>
+            <button class="modal-btn" onclick="closeRepairModal()">确定</button>
+        </div>
+    </div>
+
+    <!-- 申请分类弹窗 -->
+    <div class="modal-overlay" id="applyModal">
+        <div class="modal-content apply-modal">
+            <div class="apply-grid">
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/c5f6079c1424f286bf346b2d5cd41673.png" alt="考勤申请">
+                    <span>考勤申请</span>
+                </div>
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/6f4c7728be3c8fad93ca16186111dac9.png" alt="工作申请">
+                    <span>工作申请</span>
+                </div>
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/b0e17c538060da207b16a62c0cea4392.png" alt="人事申请">
+                    <span>人事申请</span>
+                </div>
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/15a25645884980e4bca5ce390089d31e.png" alt="行政申请">
+                    <span>行政申请</span>
+                </div>
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/9fcbd5e03bd6da08246bf49964b08bb7.png" alt="财务申请">
+                    <span>财务申请</span>
+                </div>
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/4666ca2edec1ad9effd66e9c00c8176d.png" alt="质检申请">
+                    <span>质检申请</span>
+                </div>
+                <div class="apply-item">
+                    <img src="https://s1.imagehub.cc/images/2024/12/01/6f33bec2c6ffa124c08fec16059fc508.png" alt="公文申请">
+                    <span>公文申请</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html> 
